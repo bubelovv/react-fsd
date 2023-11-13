@@ -12,13 +12,13 @@ export default (options: buildOptions): webpack.Configuration => {
         mode: mode,
         entry: paths.entry,
         output: {
-            filename: '[name][hash].js',
+            filename: '[name].[contenthash:8].js',
             path: paths.output,
             clean: true,
         },
         plugins: buildPlugins(options),
         module: {
-            rules: buildLoaders(),
+            rules: buildLoaders(options),
         },
         resolve: buildResolvers(),
         devtool: isDev ? 'inline-source-map' : undefined,
