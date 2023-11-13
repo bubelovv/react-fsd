@@ -1,7 +1,6 @@
 import webpack from 'webpack'
-import { buildOptions } from './types/config'
 
-export const buildLoaders = (options: buildOptions): webpack.RuleSetRule[] => {
+export const buildLoaders = (): webpack.RuleSetRule[] => {
     return [
         {
             test: /\.tsx?$/,

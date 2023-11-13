@@ -7,8 +7,14 @@ export interface buildPaths {
     src: string,
 }
 
+export interface buildEnv {
+    port: number,
+    mode: buildMode
+}
+
 export interface buildOptions {
     mode: buildMode,
     paths: buildPaths,
-    isDev: boolean
+    isDev: boolean,
+    port: number
 }
