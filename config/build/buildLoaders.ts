@@ -11,6 +11,34 @@ export const buildLoaders = ({ mode }: buildOptions): webpack.ModuleOptions['rul
         exclude: /node_modules/,
     }
 
+    const assetsLoader = {
+        test: /\.(png|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+    }
+
+    const svgLoader = {
+        test: /\.svg$/i,
+        issuer: /\.[jt]sx?$/,
+        use: [
+            {
+                loader: '@svgr/webpack',
+                options: {
+                    icon: true,
+                    svgoConfig: {
+                        plugins: [
+                            {
+                                name: 'convertColors',
+                                params: {
+                                    currentColor: true
+                                }
+                            }
+                        ]
+                    }
+                },
+            },
+        ],
+    }
+
     const scssLoader = {
         test: /\.s[ac]ss$/i,
         use: [
@@ -22,7 +50,7 @@ export const buildLoaders = ({ mode }: buildOptions): webpack.ModuleOptions['rul
                         auto: /\.module\./,
                         localIdentName: isDev
                             ? '[path][name]__[local]-[hash:base64:5]'
-                            : '[hash:base64:8]'
+                            : '[hash:base64:8]',
                     },
                 },
             },
@@ -31,6 +59,8 @@ export const buildLoaders = ({ mode }: buildOptions): webpack.ModuleOptions['rul
     }
 
     return [
+        svgLoader,
+        assetsLoader,
         typescriptLoader,
         scssLoader,
     ]

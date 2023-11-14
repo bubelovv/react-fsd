@@ -9,7 +9,6 @@ export default (options: buildOptions): webpack.Configuration => {
     const { mode, paths } = options
     const isDev = mode === 'development'
 
-    console.log(isDev ? buildDevServer(options) : undefined)
     return {
         mode: mode,
         entry: paths.entry,
