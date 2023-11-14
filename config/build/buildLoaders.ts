@@ -2,7 +2,7 @@ import webpack from 'webpack'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { buildOptions } from './types/config'
 
-export const buildLoaders = ({ isDev }: buildOptions): webpack.RuleSetRule[] => {
+export const buildLoaders = ({ isDev }: buildOptions): webpack.ModuleOptions['rules'] => {
 
     const typescriptLoader = {
         test: /\.tsx?$/,

@@ -12,9 +12,9 @@ export default (env: buildEnv): webpack.Configuration => {
         src: path.resolve(__dirname, 'src'),
     }
 
-    const mode = env.mode || 'development'
+    const port = env.port ?? 3000
+    const mode = env.mode ?? 'development'
     const isDev = mode === 'development'
-    const port = env.port || 3000
 
     return buildWebpackConfig({ mode, port, isDev, paths })
 }
