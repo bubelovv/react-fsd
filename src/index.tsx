@@ -1,9 +1,9 @@
-import { createRoot } from 'react-dom/client'
-import { App } from './App'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { AboutPage } from './pages/about'
-import { MainPage } from './pages/main'
 import { Suspense } from 'react'
+import { createRoot } from 'react-dom/client'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { App } from './App'
+import { AboutPage } from '@/pages/about'
+import { MainPage } from '@/pages/main'
 
 const container = document.getElementById('root')
 

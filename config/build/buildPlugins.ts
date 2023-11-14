@@ -13,7 +13,7 @@ export const buildPlugins = ({ paths, mode, analyze }: buildOptions): Configurat
     ]
 
     if (isDev) {
-        plugins.push(new webpack.ProgressPlugin())
+        // plugins.push(new webpack.ProgressPlugin())
     }
 
     if (isProd) {

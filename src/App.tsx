@@ -1,5 +1,5 @@
 import { Link, Outlet } from 'react-router-dom'
-import { Counter } from './components/Counter'
+import { Counter } from '@/components/Counter'
 import './index.scss'
 
 export const App = () => {
