@@ -6,8 +6,10 @@ import { buildDevServer } from './buildDevServer'
 import { buildOptions } from './types/config'
 
 export default (options: buildOptions): webpack.Configuration => {
-    const { mode, paths, isDev } = options
+    const { mode, paths } = options
+    const isDev = mode === 'development'
 
+    console.log(isDev ? buildDevServer(options) : undefined)
     return {
         mode: mode,
         entry: paths.entry,
@@ -22,6 +24,6 @@ export default (options: buildOptions): webpack.Configuration => {
         },
         resolve: buildResolvers(),
         devtool: isDev && 'inline-source-map',
-        devServer: isDev ? buildDevServer(options) : undefined
+        devServer: isDev ? buildDevServer(options) : undefined,
     }
 }

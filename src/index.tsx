@@ -31,5 +31,5 @@ const router = createBrowserRouter([
 root.render(
     <Suspense fallback={'Loading'}>
         <RouterProvider router={router}/>
-    </Suspense>,
+    </Suspense>
 )
