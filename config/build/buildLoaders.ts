@@ -7,7 +7,14 @@ export const buildLoaders = ({ mode }: buildOptions): webpack.ModuleOptions['rul
 
     const typescriptLoader = {
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        use: [
+            {
+                loader: 'ts-loader',
+                options: {
+                    transpileOnly: isDev
+                }
+            }
+        ],
         exclude: /node_modules/,
     }
 

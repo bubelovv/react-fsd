@@ -1,6 +1,5 @@
 import path from 'path'
 import webpack from 'webpack'
-import type { Configuration } from "webpack";
 import dotenv from 'dotenv'
 import buildWebpackConfig from './config/build/buildWebpackConfig'
 import { buildEnv, buildPaths } from './config/build/types/config'
