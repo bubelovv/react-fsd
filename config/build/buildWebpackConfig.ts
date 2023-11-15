@@ -13,7 +13,8 @@ export default (options: buildOptions): webpack.Configuration => {
         mode: mode,
         entry: paths.entry,
         output: {
-            filename: '[name].[contenthash:8].js',
+            filename: '[name].[contenthash:5].js',
+            assetModuleFilename: 'assets/[name].[hash:5][ext]',
             path: paths.output,
             clean: true,
         },
