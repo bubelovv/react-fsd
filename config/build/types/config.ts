@@ -4,8 +4,8 @@ export type buildPlatform = 'mobile' | 'desktop'
 export interface buildPaths {
     entry: Record<string, string> | string,
     output: string,
-    html: string,
     src: string,
+    public: string
 }
 
 export interface buildEnv {

@@ -13,7 +13,7 @@ export const buildLoaders = ({ mode }: buildOptions): webpack.ModuleOptions['rul
                 loader: 'ts-loader',
                 options: {
                     getCustomTransformers: () => ({
-                        before: [isDev && ReactRefreshTypeScript()].filter(Boolean),
+                        before: isDev ? [ReactRefreshTypeScript()] : [],
                     }),
                     transpileOnly: isDev
                 }
