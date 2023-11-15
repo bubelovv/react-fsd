@@ -4,23 +4,28 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import { buildOptions } from './types/config'
 
-export const buildPlugins = ({ paths, mode, analyze }: buildOptions): Configuration['plugins'] => {
+export const buildPlugins = ({ paths, mode, analyze, platform, apiUrl }: buildOptions): Configuration['plugins'] => {
     const isDev = mode === 'development'
     const isProd = mode === 'production'
 
     const plugins: Configuration['plugins'] = [
         new HtmlWebpackPlugin({ template: paths.html }),
+        new webpack.DefinePlugin({
+            PLATFORM: JSON.stringify(platform),
+            API_URL: JSON.stringify(apiUrl)
+        }),
     ]
 
     if (isDev) {
-        plugins.push(new webpack.ProgressPlugin())
+        // plugins.push(new webpack.ProgressPlugin())
     }
 
     if (isProd) {
         plugins.push(new MiniCssExtractPlugin({
-            filename: 'css/[name].[contenthash:8].css',
-            chunkFilename: 'css/[name].[contenthash:8].css',
+            filename: 'css/[name].[contenthash:5].css',
+            chunkFilename: 'css/[name].[contenthash:5].css',
         }))
+        plugins.push(new webpack.ProgressPlugin())
     }
 
     if (analyze) {

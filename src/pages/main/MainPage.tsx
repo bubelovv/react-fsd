@@ -7,6 +7,8 @@ const MainPage = () => {
     return (
         <div>
             <h2>Main page</h2>
+            <h2>platform: {PLATFORM}</h2>
+            <h2>api-url: {API_URL}</h2>
             <img width={100} height={100} src={pngImage} alt="png"/>
             <img width={100} height={100} src={jpgImage} alt="jpg"/>
             <img width={100} height={100} src={jpegImage} alt="jpeg"/>
