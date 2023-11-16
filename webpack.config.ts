@@ -17,8 +17,8 @@ export default (env: buildEnv): webpack.Configuration => {
     return buildWebpackConfig({
         port: env.port ?? 3000,
         mode: env.mode ?? 'development',
-        analyze: env.analyze,
         platform: env.platform ?? 'desktop',
+        analyze: env.analyze,
         apiUrl: process.env['API_URL'],
         paths,
     })

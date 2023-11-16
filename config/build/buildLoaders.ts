@@ -1,4 +1,4 @@
-import webpack from 'webpack'
+import webpack, { RuleSetRule } from 'webpack'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import ReactRefreshTypeScript from 'react-refresh-typescript'
 import { buildOptions } from './types/config'
@@ -6,8 +6,9 @@ import { buildOptions } from './types/config'
 export const buildLoaders = ({ mode }: buildOptions): webpack.ModuleOptions['rules'] => {
     const isDev = mode === 'development'
 
-    const typescriptLoader = {
+    const typescriptLoader: RuleSetRule = {
         test: /\.tsx?$/,
+        exclude: /node_modules/,
         use: [
             {
                 loader: 'ts-loader',
@@ -15,19 +16,24 @@ export const buildLoaders = ({ mode }: buildOptions): webpack.ModuleOptions['rul
                     getCustomTransformers: () => ({
                         before: isDev ? [ReactRefreshTypeScript()] : [],
                     }),
-                    transpileOnly: isDev
-                }
-            }
+                    transpileOnly: isDev,
+                },
+            },
         ],
+    }
+
+    const babelLoader: RuleSetRule = {
+        test: /\.(|jsx?|tsx?)$/,
+        use: 'babel-loader',
         exclude: /node_modules/,
     }
 
-    const assetsLoader = {
+    const assetsLoader: RuleSetRule = {
         test: /\.(png|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
     }
 
-    const svgLoader = {
+    const svgLoader: RuleSetRule = {
         test: /\.svg$/i,
         issuer: /\.[jt]sx?$/,
         use: [
@@ -40,17 +46,17 @@ export const buildLoaders = ({ mode }: buildOptions): webpack.ModuleOptions['rul
                             {
                                 name: 'convertColors',
                                 params: {
-                                    currentColor: true
-                                }
-                            }
-                        ]
-                    }
+                                    currentColor: true,
+                                },
+                            },
+                        ],
+                    },
                 },
             },
         ],
     }
 
-    const scssLoader = {
+    const scssLoader: RuleSetRule = {
         test: /\.s[ac]ss$/i,
         use: [
             isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
@@ -73,6 +79,7 @@ export const buildLoaders = ({ mode }: buildOptions): webpack.ModuleOptions['rul
         svgLoader,
         assetsLoader,
         typescriptLoader,
+        // babelLoader,
         scssLoader,
     ]
 }

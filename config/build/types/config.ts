@@ -19,7 +19,7 @@ export interface buildOptions {
     port: number,
     mode: buildMode,
     platform: buildPlatform,
-    paths: buildPaths,
     analyze: boolean,
+    paths: buildPaths,
     apiUrl?: string
 }

@@ -3,13 +3,13 @@ import { buildPlugins } from './buildPlugins'
 import { buildLoaders } from './buildLoaders'
 import { buildResolvers } from './buildResolvers'
 import { buildDevServer } from './buildDevServer'
-import { buildOptions } from './types/config'
-import TerserPlugin from 'terser-webpack-plugin'
 import { buildOptimization } from './buildOptimization'
+import { buildOptions } from './types/config'
 
 export default (options: buildOptions): webpack.Configuration => {
     const { mode, paths } = options
     const isDev = mode === 'development'
+    const isProd = mode === 'production'
 
     return {
         mode: mode,
@@ -26,8 +26,8 @@ export default (options: buildOptions): webpack.Configuration => {
             rules: buildLoaders(options),
         },
         resolve: buildResolvers(options),
-        optimization: buildOptimization(options),
-        devtool: isDev && 'inline-source-map',
+        devtool: isDev ? 'eval-cheap-module-source-map' : 'source-map',
         devServer: isDev ? buildDevServer(options) : undefined,
+        optimization: isProd ? buildOptimization(options) : undefined,
     }
 }

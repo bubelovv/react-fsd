@@ -1,5 +1,5 @@
 import path from 'path'
-import webpack, { Configuration } from 'webpack'
+import webpack, { Configuration, HotModuleReplacementPlugin } from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
@@ -22,6 +22,7 @@ export const buildPlugins = (options: buildOptions): Configuration['plugins'] =>
             PLATFORM: JSON.stringify(platform),
             API_URL: JSON.stringify(apiUrl),
         }),
+        new webpack.ProgressPlugin()
     ]
 
     if (isDev) {
@@ -39,7 +40,6 @@ export const buildPlugins = (options: buildOptions): Configuration['plugins'] =>
                 { from: path.resolve(paths.public, 'locales'), to: path.resolve(paths.output, 'locales') },
             ],
         }))
-        plugins.push(new webpack.ProgressPlugin())
     }
 
     if (analyze) {
