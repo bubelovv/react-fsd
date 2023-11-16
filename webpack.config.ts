@@ -1,34 +1,25 @@
 import path from 'path'
 import webpack from 'webpack'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
+import dotenv from 'dotenv'
+import buildWebpackConfig from './config/build/buildWebpackConfig'
+import { buildEnv, buildPaths } from './config/build/types/config'
 
-export default (env: any): webpack.Configuration => {
+export default (env: buildEnv): webpack.Configuration => {
+    dotenv.config({ path: './.env' })
 
-    return {
-        mode: 'development',
-        entry: path.resolve(__dirname, 'src', 'index.ts'),
-        output: {
-            filename: '[name][hash].js',
-            path: path.resolve(__dirname, 'build'),
-            clean: true,
-        },
-        plugins: [
-            new webpack.ProgressPlugin(),
-            new HtmlWebpackPlugin({
-                template: path.resolve(__dirname, 'public', 'index.html')
-            }),
-        ],
-        module: {
-            rules: [
-                {
-                    test: /\.tsx?$/,
-                    use: 'ts-loader',
-                    exclude: /node_modules/,
-                },
-            ],
-        },
-        resolve: {
-            extensions: ['.tsx', '.ts', '.js'],
-        },
+    const paths: buildPaths = {
+        entry: path.resolve(__dirname, 'src', 'index.tsx'),
+        output: path.resolve(__dirname, 'build'),
+        public: path.resolve(__dirname, 'public'),
+        src: path.resolve(__dirname, 'src'),
     }
+
+    return buildWebpackConfig({
+        port: env.port ?? 3000,
+        mode: env.mode ?? 'development',
+        platform: env.platform ?? 'desktop',
+        analyze: env.analyze,
+        apiUrl: process.env['API_URL'],
+        paths,
+    })
 }
